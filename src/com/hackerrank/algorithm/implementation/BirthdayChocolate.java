@@ -33,7 +33,7 @@ public class BirthdayChocolate {
         		return 0;
         	}        	
         }
-        while(i < s.length-month){
+        while(i <= s.length-month){
           int count=0;          
           for(int j=i;j<=(i+month-1);j++){
              count +=s[j];
