@@ -1,5 +1,6 @@
 package com.hackerrank.algorithm.search;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,34 +11,31 @@ import java.util.Set;
 
 public class GridlandMetro {
 	
-	private static class Track{
-		int row;
+	private static class Track{		
 		int columnStart;
 		int columnEnd;
 		
-		Track(int row,int columnStart,int columnEnd){
-			this.row=row;
+		Track(int row,int columnStart,int columnEnd){			
 			this.columnStart=columnStart;
 			this.columnEnd=columnEnd;
 		}
 		
 	}
 	
-	private static long findCount(HashMap<Integer,List<Track>> hMap) {;
-	    long count=0;
+	private static BigInteger findCount(HashMap<Integer,List<Track>> hMap) {;
+	    BigInteger count = new BigInteger("0");
 		Set<Entry<Integer,List<Track>>> set = hMap.entrySet();
 		Iterator<Entry<Integer,List<Track>>> iter= set.iterator();
 		while(iter.hasNext()){
-			Entry<Integer,List<Track>> entry = iter.next();
-			int row= entry.getKey();
+			Entry<Integer,List<Track>> entry = iter.next();			
 			List<Track> trackList= entry.getValue();
 			for(Track track:trackList){
 				int columnStart = track.columnStart;
 				int columnEnd= track.columnEnd;
-				count += (columnEnd-columnStart)+1;
+				count= count.add(new BigInteger(String.valueOf((columnEnd-columnStart)+1)));				
 			}
 			
-		}		
+		}
 		return count;
 	}
 	
@@ -68,10 +66,11 @@ public class GridlandMetro {
 				//if within range ignore
 				if(e.columnStart>=cur.columnStart && e.columnEnd<=cur.columnEnd){
 					return list;
-				}
+				}				
+				
 				
 			
-				if(e.columnStart<cur.columnStart && e.columnEnd==cur.columnEnd){
+				if(e.columnStart<cur.columnStart && e.columnEnd<=cur.columnEnd && e.columnEnd>=cur.columnStart){
 					cur.columnStart=e.columnStart;
 					if(index>0){
 						Track prev= list.get(index-1);
@@ -83,7 +82,7 @@ public class GridlandMetro {
 					return list;
 				}
 				
-				if(e.columnStart==cur.columnStart &&  e.columnEnd>cur.columnEnd){
+				if(e.columnStart>=cur.columnStart && e.columnStart<=cur.columnEnd &&  e.columnEnd>cur.columnEnd){
 					 cur.columnEnd=e.columnEnd;
 					 if(index<=list.size()-2){
 						 Track next= list.get(index+1);
@@ -134,12 +133,13 @@ public class GridlandMetro {
 					trackMap.put(trainRow, trackList);
 				}				
 			}			
-			System.out.println( (rows*columns)-findCount(trackMap));
-		}else{
-			System.out.println(rows*columns);
+			System.out.println(new BigInteger(String.valueOf(rows)).multiply(new BigInteger(String.valueOf(columns))).subtract(findCount(trackMap)));
+		}else{			
+		
+			System.out.println(new BigInteger(String.valueOf(rows)).multiply(new BigInteger(String.valueOf(columns))));
+			
 		}
     }
-
 	
 
 }
