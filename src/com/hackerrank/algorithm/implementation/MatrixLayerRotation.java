@@ -4,12 +4,26 @@ import java.util.Scanner;
 
 public class MatrixLayerRotation {
 	
+	
 	public static int rotateByN(int row,int column,int rowCount,int colCount, int[][] matrix,int noOfRotations){
-		//System.out.println("Row= "+row+" Col= "+ column+" "+matrix[row][column]);
+		System.out.println("Row= "+row+" Col= "+ column+" "+matrix[row][column]);
+		
+		
 		int topRow=0;
 		int rightCol=colCount-1;
 		int leftCol=0;
 		int bottomRow=rowCount-1;
+		
+		/*int topRow= Math.min(rowCount-1-row, row-0);
+		int bottomRow=Math.max(rowCount-1-row, row-0);
+		int leftCol=Math.min(colCount-1-column, column-0);
+		int rightCol=Math.max(colCount-1-column, column-0);
+		
+		rowCount= rightCol-leftCol+1;
+		colCount= bottomRow-topRow+1;*/
+		
+		System.out.println("== "+topRow+" "+bottomRow+" "+leftCol+" "+rightCol+" "+rowCount+" "+colCount);
+	
 		
 		int maxPossibleRotations=  (rowCount*2)+(colCount*2)-4;
 		noOfRotations= noOfRotations>maxPossibleRotations? noOfRotations%maxPossibleRotations:noOfRotations;
@@ -112,11 +126,12 @@ public class MatrixLayerRotation {
 			for(int j=0;j<columnCount;j++){				
 				String space= j==columnCount-1?"":" ";	
 				if(i==0 || j==0 || i==rowCount-1 || j==columnCount-1){
-					System.out.println(rotateByN(i,j,rowCount,columnCount,matrix,noOfRotations)+space);
+					System.out.print(rotateByN(i,j,rowCount,columnCount,matrix,noOfRotations)+space);
 				}else{
-					System.out.println(matrix[i][j]+""+space);
+					System.out.print(matrix[i][j]+""+space);
 				}
 			}
+			System.out.println();
 		}
 		
 		/*for(int i=14;i<=20;i++){
