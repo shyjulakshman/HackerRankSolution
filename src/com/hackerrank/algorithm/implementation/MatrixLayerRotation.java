@@ -6,26 +6,39 @@ public class MatrixLayerRotation {
 	
 	
 	public static int rotateByN(int row,int column,int rowCount,int colCount, int[][] matrix,int noOfRotations){
-		System.out.println("Row= "+row+" Col= "+ column+" "+matrix[row][column]);
-		
-		
+		//System.out.println("Row= "+row+" Col= "+ column+" "+matrix[row][column]);
 		int topRow=0;
 		int rightCol=colCount-1;
 		int leftCol=0;
 		int bottomRow=rowCount-1;
 		
-		/*int topRow= Math.min(rowCount-1-row, row-0);
-		int bottomRow=Math.max(rowCount-1-row, row-0);
-		int leftCol=Math.min(colCount-1-column, column-0);
-		int rightCol=Math.max(colCount-1-column, column-0);
+		if(!(row==0 || column==0 || row==rowCount-1 || column==colCount-1)){
+			
+			if(column<row){
+				topRow=column;				
+			}else if(column==row){
+				 topRow=row;
+			}else if(column>row){
+				 topRow=colCount-1-column;				 
+			}
+			leftCol=topRow;
+			rightCol=colCount-1-leftCol;			
+			bottomRow=rowCount-1-topRow;
+			
+			
+			/*topRow= (rowCount-1-row)==row? (row-1):Math.min(rowCount-1-row, row-0);
+			bottomRow=(rowCount-1-row)==row? (row+1):Math.max(rowCount-1-row, row-0);
+			leftCol=(colCount-1-column)==column? (column-1): Math.min(colCount-1-column, column-0);
+			rightCol=(colCount-1-column)==column? (column+1):Math.max(colCount-1-column, column-0);*/
+
+			rowCount= rightCol-leftCol+1;
+			colCount= bottomRow-topRow+1;
+		}
 		
-		rowCount= rightCol-leftCol+1;
-		colCount= bottomRow-topRow+1;*/
-		
-		System.out.println("== "+topRow+" "+bottomRow+" "+leftCol+" "+rightCol+" "+rowCount+" "+colCount);
+		System.out.println("Row== "+row+" Column="+column+" "+topRow+" "+bottomRow+" "+leftCol+" "+rightCol+" "+rowCount+" "+colCount);
 	
 		
-		int maxPossibleRotations=  (rowCount*2)+(colCount*2)-4;
+		/*int maxPossibleRotations=  (rowCount*2)+(colCount*2)-4;
 		noOfRotations= noOfRotations>maxPossibleRotations? noOfRotations%maxPossibleRotations:noOfRotations;
 		
 		while(noOfRotations!=0){
@@ -74,7 +87,7 @@ public class MatrixLayerRotation {
 				}
 			}	
 			
-		}
+		}*/
 		return matrix[row][column];
 	}
 	
@@ -124,23 +137,12 @@ public class MatrixLayerRotation {
 		
 		for(int i=0;i<rowCount;i++){
 			for(int j=0;j<columnCount;j++){				
-				String space= j==columnCount-1?"":" ";	
-				if(i==0 || j==0 || i==rowCount-1 || j==columnCount-1){
-					System.out.print(rotateByN(i,j,rowCount,columnCount,matrix,noOfRotations)+space);
-				}else{
-					System.out.print(matrix[i][j]+""+space);
-				}
+				String space= j==columnCount-1?"":" ";
+				//System.out.print(rotateByN(i,j,rowCount,columnCount,matrix,noOfRotations)+space);
+				rotateByN(i,j,rowCount,columnCount,matrix,noOfRotations);
 			}
 			System.out.println();
 		}
-		
-		/*for(int i=14;i<=20;i++){
-			rotateByN(0,0,rowCount,columnCount,matrix,i);
-		}*/
-		
-		//rotateByOne(0,0,rowCount,columnCount,matrix);
-		
-		
 	}
 
 }
